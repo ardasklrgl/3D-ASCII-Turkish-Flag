@@ -26,7 +26,7 @@ python main.py
 ## **How It Works**
 
 I recommend first reading the blog post I linked in the beginning to get an idea of the math behind projecting a torus to 2D.
-I also have a Python code for the spinning donut in the repo to see how the math is applied in code.
+I also have a Python code for the spinning donut in the repo to demonstrate how the math is applied in code.
 
 ### **1. Crescent Geometry**
 
