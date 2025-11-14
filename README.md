@@ -4,6 +4,8 @@
 A Python program that renders a **3D rotating crescent moon with a star** entirely in ASCII characters in the terminal.
 Inspired by the Spinning Donut by Andy Sloane (https://www.a1k0n.net/2011/07/20/donut-math.html)
 
+![Demo](demo.gif)
+
 ---
 
 ## **How To Run**
