@@ -26,7 +26,7 @@ python main.py
 ## **How It Works**
 
 I recommend first reading the blog post I linked in the beginning to get an idea of the math behind projecting a torus to 2D.
-I have also a Python code for the spinning donut in the repo to see how the math is applied in code.
+I also have a Python code for the spinning donut in the repo to see how the math is applied in code.
 
 ### **1. Crescent Geometry**
 
@@ -61,9 +61,8 @@ z = cosX * (r2 + r1 * cosT) * sinY + r1 * sinX * sinT + k2
 
 The star is drawn as a **5-point star using polar coordinates**:
 
-* **`T`**: Moves around the full circle (0 → 2π).
+* `T`: Moves around the full circle (0 → 2π).
 * **Polar radius `r`**: Computed from the star’s polar equation for 5 points, which ensures sharp tips:
-* **`Y`**: Angle along the vertical cross-section of the crescent, shaping the crescent’s “thickness” and curvature.
 
 ```python
 nom = star_size * math.cos((2*math.asin(k)+math.pi*m)/(2*n))
@@ -97,49 +96,24 @@ yn = int(HEIGHT/2 - k1 * ooz * y)
 ```
 
 * `ooz = 1/z` ensures **points farther away appear smaller**, simulating 3D perspective.
-* `k1` scales the coordinates to fit the terminal size.
-* Z-buffer (`zbuffer[yn][xn]`) keeps track of the closest object at each pixel, so closer points overwrite farther points.
+* `k1` scales the coordinates to fit the terminal size, and also centers them.
+* Z-buffer (`zbuffer[yn][xn]`) keeps track of the closest point at each pixel, so closer points overwrite farther points.
 
 ---
 
 ### **4. Luminance Shading**
 
 * Each point is assigned a **luminance value** based on its **surface normal** and a **light vector**.
+* Each point is then mapped to an ASCII character based on luminance.
 * Example for crescent:
 
 ```python
 L = cosY * cosT * sinZ - cosX * cosT * sinY - sinX * sinT + cosZ * (cosX * sinT - cosT * sinX * sinY)
 ```
 
-* Luminance is mapped to ASCII characters:
-
-```
-"',-~:;=!*#@█"  # darker to brighter
-```
-
-* Only points with **positive luminance** are drawn; darker points blend into the background.
-
 ---
 
-### **5. Animation Loop**
-
-```python
-A, B = 0.0, 0.0
-while True:
-    render(A, B)
-    A += 0.04  # X-axis rotation
-    B += 0.08  # Z-axis rotation
-    time.sleep(0.02)  # control FPS
-```
-
-* `A` rotates the crescent/star up and down.
-* `B` rotates the crescent/star left and right.
-* `time.sleep(0.02)` gives ~50 FPS.
-* `Ctrl + C` stops the animation.
-
----
-
-## **Configuration**
+## **Configurations**
 
 | Variable          | Description                                  |
 | ----------------- | -------------------------------------------- |
@@ -152,6 +126,6 @@ while True:
 | `k2`              | Depth offset to move object away from camera |
 | `star_size`       | Size of the 5-point star                     |
 | `thck_grad`       | Thickness gradient of the star               |
-| `A`, `B`          | Rotation angles incremented per frame        |
+| `X`, `Y`          | Rotation angles incremented per frame        |
 
 ---
